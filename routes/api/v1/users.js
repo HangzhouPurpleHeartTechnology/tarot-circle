@@ -31,7 +31,7 @@ router.post('/signup', (req, res) => {
   console.log('after validation');
   console.log('req.body.username', req.body.username);
   console.log('User', User);
-  debugger;
+  User.find().then((res) => console.log(res));
   User.findOne({ username: req.body.username }).then((user) => {
     console.log('a user come back', user);
     if (user) {

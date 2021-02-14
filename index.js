@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const db = require('./config/mongoConnect');
+const run = require('./config/mongoConnect');
 
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -23,7 +23,6 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/users', users);
 
-db().catch(console.dir);
-
+run();
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server is running on ${port}`));
