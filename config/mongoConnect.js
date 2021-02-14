@@ -4,7 +4,7 @@ const credentials = fs.readFileSync('./config/credentials/cert.pem');
 const dbname = 'tarot-circle';
 const user = 'user';
 const client = new MongoClient(
-  `mongodb+srv://cluster0.aduqr.mongodb.net/${dbname}?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority`,
+  `mongodb+srv://cluster0.aduqr.mongodb.net/${dbname}?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&ssl=true`,
   {
     sslKey: credentials,
     sslCert: credentials,

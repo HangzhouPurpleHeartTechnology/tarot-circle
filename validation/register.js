@@ -21,7 +21,7 @@ module.exports = function validateRegisterInput(data) {
     errors.phoneNumber = 'phone number field is required';
   }
 
-  if (!Validator.isMobilePhone(data.phoneNumber, ['am-AM', 'zh-CN'])) {
+  if (!Validator.isMobilePhone(data.phoneNumber, ['en-US', 'zh-CN'])) {
     errors.phoneNumber = 'phone number is invalid';
   }
 

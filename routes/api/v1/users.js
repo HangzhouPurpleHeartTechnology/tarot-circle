@@ -16,7 +16,7 @@ const sessionUserPayload = (user) => ({
 });
 
 router.get('/:userId', (req, res) => {
-  User.findById(req.params.userId)
+  User.findOne(req.params.userId)
     .then((user) => {
       res.json(user);
     })
@@ -28,7 +28,12 @@ router.post('/signup', (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  User.findOne({ email: req.body.email }).then((user) => {
+  console.log('after validation');
+  console.log('req.body.username', req.body.username);
+  console.log('User', User);
+  debugger;
+  User.findOne({ username: req.body.username }).then((user) => {
+    console.log('a user come back', user);
     if (user) {
       return res.status(400).json({
         email: 'A user has already registered with this address',
