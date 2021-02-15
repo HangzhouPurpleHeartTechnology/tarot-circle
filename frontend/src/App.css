@@ -1,2 +1,4 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+#app {
+  font-family: Oswald, sans-serif;
 }

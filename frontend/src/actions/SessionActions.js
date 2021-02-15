@@ -35,10 +35,7 @@ export const actionSignup = (user) => (dispatch) =>
     .then((usr) => dispatch(receiveSessionUser(usr)))
     .catch((err) => dispatch(receiveSessionError(err.response.data)));
 
-export const actionSignout = () => (dispatch) =>
-  dispatch(removeSessionUser()).catch((err) =>
-    dispatch(receiveSessionError(err.response.data))
-  );
+export const actionSignout = () => (dispatch) => dispatch(removeSessionUser());
 
 export const actionFetchUser = (userId) => (dispatch) =>
   Api.apiFetchUser(userId)
