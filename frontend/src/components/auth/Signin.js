@@ -1,10 +1,12 @@
 import React from 'react';
 import Background from '../Background';
 import { Fade, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import useStyles from './AuthStyles';
 import Input from '../input/Input';
 
 const SigninForm = () => {
+  const history = useHistory();
   const classes = useStyles();
   return (
     <Fade in timeout={400}>
@@ -22,6 +24,19 @@ const SigninForm = () => {
             <Input />
           </label>
         </div>
+        <p style={{ color: 'purple' }}>
+          Don't have an account ?{' '}
+          <span
+            style={{
+              color: 'darkblue',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+            }}
+            onClick={() => history.push('/signup')}
+          >
+            SIGN UP
+          </span>
+        </p>
         <Button variant='contained' className={classes.button}>
           SIGN IN
         </Button>
