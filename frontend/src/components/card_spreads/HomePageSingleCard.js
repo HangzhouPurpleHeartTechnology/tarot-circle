@@ -15,17 +15,21 @@ export default function App() {
   const history = useHistory();
   return (
     <div className={classes.root}>
-      <Card
-        className={classes.card}
-        onClick={() => history.push('/cardspreads/1')}
-      >
+      <Card className={classes.card}>
         <CardMedia
           className={classes.media}
           image={
             'https://res.cloudinary.com/willwang/image/upload/v1613349049/cards_e6btyx.png'
           }
+          onClick={(e) => {
+            e.nativeEvent.stopPropagation();
+            history.push('/card/1');
+          }}
         />
-        <CardContent className={classes.content}>
+        <CardContent
+          className={classes.content}
+          onClick={() => history.push('/cardspreads/1')}
+        >
           <h3
             gutterBottom
             style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}

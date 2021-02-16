@@ -1,6 +1,7 @@
 import React from 'react';
 import cardArray from './CardArray';
 import { makeStyles } from '@material-ui/core';
+import Drawer from '../cards/JournalDrawer';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 100,
@@ -8,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 200,
   },
   title: {
     fontSize: 70,
@@ -28,6 +30,41 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
+    '&>div': {
+      marginTop: 30,
+      [theme.breakpoints.up('md')]: {
+        marginTop: 0,
+      },
+    },
+  },
+  drawer: {
+    position: 'fixed',
+    right: 10,
+    top: 100,
+    opacity: 0.5,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&>button': {
+      color: 'purple',
+    },
+    '&:hover': {
+      opacity: 1,
+    },
+    '&>div': {
+      width: 1,
+      height: 100,
+      backgroundColor: 'purple',
+    },
+    [theme.breakpoints.up('md')]: {
+      right: 50,
+      top: 150,
+    },
   },
 }));
 
@@ -41,6 +78,11 @@ function SingleCardExplanation({ cardIndex }) {
 
   return (
     <div className={classes.root}>
+      <div className={classes.drawer}>
+        <div />
+        <Drawer />
+        <div />
+      </div>
       <h1>
         <span className={classes.title}>
           {cardIndex} {cardInfo.name}
