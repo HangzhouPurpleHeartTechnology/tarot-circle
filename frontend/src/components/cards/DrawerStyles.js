@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 450,
+    width: 400,
     height: '100%',
   },
   fullList: {
