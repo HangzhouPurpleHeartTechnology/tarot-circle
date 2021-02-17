@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Fab, IconButton } from '@material-ui/core';
 import { Menu, Add, Search, Person } from '@material-ui/icons';
 import { useLocation, useHistory } from 'react-router-dom';
 import LeftMenu from '../home/LeftMenuDrawer';
+import BottomDrawer from '../home/BottomDrawer';
 
 const backgroundImage =
   'https://res.cloudinary.com/willwang/image/upload/v1613334443/Ori_naexbt.png';
@@ -62,9 +63,7 @@ export default function BottomAppBar() {
       <AppBar position='fixed' className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <LeftMenu />
-          <Fab aria-label='add' className={classes.fabButton}>
-            <Add style={{ color: 'white' }} />
-          </Fab>
+          <BottomDrawer />
           <div className={classes.grow} />
           <IconButton color='inherit' className={classes.iconButtons}>
             <Search />

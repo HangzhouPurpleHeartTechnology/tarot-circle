@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
       width: 450,
     },
   },
+  bottomList: {
+    width: 'auto',
+    height: '95vh',
+  },
   drawerContent: {
     padding: 50,
     fontFamily: 'Oswald',
@@ -37,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: '#760BD6',
     cursor: 'pointer',
+  },
+  fabButton: {
+    position: 'absolute',
+    zIndex: 1,
+    top: '-5vh',
+    left: 0,
+    right: 0,
+    width: '10vh',
+    height: '10vh',
+    margin: '0 auto',
+    backgroundColor: 'red',
+    border: '5px solid #fff',
+    '&:hover': {
+      backgroundColor: 'pink',
+    },
   },
 }));
 
