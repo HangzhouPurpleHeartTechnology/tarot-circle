@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, Typography, Fade } from '@material-ui/core';
 import Background from '../Background';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   welcome: {
     color: 'white',
-    fontSize: 100,
+    fontSize: 20,
     fontWeight: 800,
+    [theme.breakpoints.up("md")]: {
+      fontSize: 100,
+      fontWeight: 800,
+    }
   },
 }));
 const Welcome = () => {
