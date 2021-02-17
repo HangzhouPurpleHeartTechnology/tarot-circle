@@ -7,17 +7,6 @@ const useStyles = makeStyles((theme) => ({
       width: 450,
     },
   },
-  fullList: {
-    width: 'auto',
-  },
-  button: {
-    width: 100,
-    backgroundColor: '#760BD6 !important',
-    color: 'white !important',
-    fontWeight: 800,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
   drawerContent: {
     padding: 50,
     fontFamily: 'Oswald',
@@ -28,18 +17,26 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    color: 'purple',
+    color: '#760BD6',
+    marginBottom: '10vh',
   },
   closeButton: {
     border: '1px solid red',
-    width: 30,
-    height: 30,
-    padding: 5,
+    width: 50,
+    height: 50,
+    padding: 15,
     borderRadius: 999,
     position: 'absolute',
-    left: 30,
     bottom: 50,
+    left: 30,
     backgroundColor: 'white',
+  },
+  divider: {
+    width: 200,
+  },
+  menuItem: {
+    color: '#760BD6',
+    cursor: 'pointer',
   },
 }));
 

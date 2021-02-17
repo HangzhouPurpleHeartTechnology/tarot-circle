@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Drawer, IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import { Edit } from '@material-ui/icons';
 import useStyles from './DrawerStyles';
 
@@ -28,12 +29,17 @@ export default function TemporaryDrawer({ note }) {
   };
 
   const list = (anchor) => (
-    <div
-      className={classes.list}
-      onClick={toggleDrawer(anchor, true)}
-      onKeyDown={toggleDrawer(anchor, true)}
-    >
+    <div className={classes.list}>
       <CardNote note={note} anchor={anchor} />
+      <IconButton
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <Close
+          color='secondary'
+          className={classes.closeButton}
+        />
+      </IconButton>
     </div>
   );
 
@@ -50,16 +56,6 @@ export default function TemporaryDrawer({ note }) {
         </div>
         <p>{note.updatedAt.split(' ').slice(0, 5).join(' ')}</p>
         <h3>{note.notes}</h3>
-        <Button
-          variant='contained'
-          color='secondary'
-          className={classes.closeButton}
-          onKeyDown={() => {
-            toggleDrawer(anchor, false);
-          }}
-        >
-          close
-        </Button>
       </div>
     );
   };

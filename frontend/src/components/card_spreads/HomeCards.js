@@ -1,26 +1,28 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Fade } from '@material-ui/core';
 import Card from './HomePageSingleCard';
 import Background from '../Background';
 
 const Cards = () => (
-  <Grid container style={{ marginBottom: 200, marginTop: 70 }}>
-    <Grid item xs={12} sm={6} md={4}>
-      <Card />
+  <Fade in={true} timeout={{ enter: 2000 }}>
+    <Grid container style={{ marginBottom: 200, marginTop: 70 }}>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card />
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card />
+      </Grid>
     </Grid>
-    <Grid item xs={12} sm={6} md={4}>
-      <Card />
-    </Grid>
-    <Grid item xs={12} sm={6} md={4}>
-      <Card />
-    </Grid>
-    <Grid item xs={12} sm={6} md={4}>
-      <Card />
-    </Grid>
-    <Grid item xs={12} sm={6} md={4}>
-      <Card />
-    </Grid>
-  </Grid>
+  </Fade>
 );
 
 const Div = () => <div></div>;

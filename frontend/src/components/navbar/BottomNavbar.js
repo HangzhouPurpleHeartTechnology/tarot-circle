@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Fab, IconButton } from '@material-ui/core';
 import { Menu, Add, Search, Person } from '@material-ui/icons';
 import { useLocation, useHistory } from 'react-router-dom';
+import LeftMenu from '../home/LeftMenuDrawer';
 
 const backgroundImage =
   'https://res.cloudinary.com/willwang/image/upload/v1613334443/Ori_naexbt.png';
@@ -60,18 +61,7 @@ export default function BottomAppBar() {
     <React.Fragment>
       <AppBar position='fixed' className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='open drawer'
-            className={classes.iconButtons}
-            style={{
-              backgroundColor: '#8EF5B7',
-              color: 'black',
-            }}
-          >
-            <Menu />
-          </IconButton>
+          <LeftMenu />
           <Fab aria-label='add' className={classes.fabButton}>
             <Add style={{ color: 'white' }} />
           </Fab>
