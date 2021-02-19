@@ -5,12 +5,14 @@ import Background from '../Background';
 const useStyles = makeStyles((theme) => ({
   welcome: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 50,
     fontWeight: 800,
-    [theme.breakpoints.up("md")]: {
+    width: 300,
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
       fontSize: 100,
       fontWeight: 800,
-    }
+    },
   },
 }));
 const Welcome = () => {

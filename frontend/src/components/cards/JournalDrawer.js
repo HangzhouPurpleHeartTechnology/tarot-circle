@@ -32,18 +32,16 @@ export default function TemporaryDrawer({ note }) {
     <div className={classes.list}>
       <CardNote note={note} anchor={anchor} />
       <IconButton
+        className={classes.closeButton}
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
       >
-        <Close
-          color='secondary'
-          className={classes.closeButton}
-        />
+        <Close color='secondary' />
       </IconButton>
     </div>
   );
 
-  const CardNote = ({ note, anchor }) => {
+  const CardNote = ({ note }) => {
     return (
       <div className={classes.drawerContent}>
         <div className={classes.drawerTitle}>

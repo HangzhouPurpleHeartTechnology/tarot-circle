@@ -9,25 +9,13 @@ const BootstrapInput = withStyles((theme) => ({
   input: {
     borderRadius: 4,
     position: 'relative',
+    width: '100%',
     backgroundColor: theme.palette.common.white,
     border: '1px solid #9103EA',
     fontSize: 16,
-    width: 'auto',
     padding: '10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
+    fontFamily: "'Oswald', sans-serif",
     '&:focus': {
       boxShadow: `${fade('#9103EA', 0.25)} 0 0 0 0.2rem`,
     },

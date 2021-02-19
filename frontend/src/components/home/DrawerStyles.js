@@ -35,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
     left: 30,
     backgroundColor: 'white',
   },
+  closeBarButton: {
+    width: '100%',
+    height: 80,
+    position: 'fixed',
+    bottom: 0,
+    backgroundColor: 'white',
+    boxShadow: '1px 1px 3px 1px rgba(255, 0, 0, 0.2)',
+    '&:hover': {
+      backgroundColor: 'white',
+    },
+  },
   divider: {
     width: 200,
   },
@@ -56,6 +67,19 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: 'pink',
     },
+  },
+  bottomDrawerContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 30,
+    color: '#760BD6',
+    position: 'relative',
+    fontFamily: 'Oswald',
+  },
+  bottomDrawerTitle: {
+    maxWidth: 350,
+    textAlign: 'center',
   },
 }));
 

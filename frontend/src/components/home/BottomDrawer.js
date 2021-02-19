@@ -1,29 +1,15 @@
 import React from 'react';
 
-import {
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  Divider,
-  Fab,
-} from '@material-ui/core';
-import { Close, Add } from '@material-ui/icons';
+import { Drawer, Button, Fab } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
+import Content from './draw_card_logics';
 import useStyles from './DrawerStyles';
 
 export default function TemporaryDrawer({ note }) {
-  note = note || {
-    cardName: 'Hermit',
-    notes:
-      "this is a personal note, and I wrote this note to record my personal understandings of a single card, this might be a long note and might be a short note, should be scrollable, editable, but don't need to section it. we will also need a update time",
-    updatedAt: new Date().toString(),
-  };
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    bottom: false,
-  });
+  const [showDrawer, setShowDrawer] = React.useState(false);
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
@@ -31,68 +17,48 @@ export default function TemporaryDrawer({ note }) {
       return;
     }
 
-    setState({ ...state, [anchor]: open });
+    setShowDrawer(open);
   };
 
   const list = (anchor) => (
     <div className={classes.bottomList}>
       <CardNote note={note} anchor={anchor} />
-      <IconButton
-        onClick={toggleDrawer(anchor, false)}
-        onKeyDown={toggleDrawer(anchor, false)}
+      <Button
+        variant='outlined'
+        color='secondary'
+        className={classes.closeBarButton}
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
       >
-        <Close color='secondary' className={classes.closeButton} />
-      </IconButton>
+        CLOSE
+      </Button>
     </div>
   );
 
-  const CardNote = ({ note, anchor }) => {
+  const CardNote = () => {
     return (
-      <div className={classes.drawerContent}>
-        <div className={classes.drawerTitle}>
-          <h1 style={{ fontWeight: 100 }}>
-            Welcome to <span style={{ fontWeight: 800 }}>Tarot Circle</span>
-          </h1>
-        </div>
-        <List>
-          <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>Hello World</h3>
-          </ListItem>
-          <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>What is this</h3>
-          </ListItem>
-          <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>Another Level</h3>
-          </ListItem>
-          <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>But</h3>
-          </ListItem>
-          <Divider className={classes.divider} />
-        </List>
+      <div className={classes.bottomDrawerContent}>
+        <h1 className={classes.bottomDrawerTitle}>
+          Simply Describe Your Question and Start Drawing
+        </h1>
+        <Content />
       </div>
     );
   };
 
   return (
-    <React.Fragment key={'bottom'}>
-      <Fab
-        aria-label='add'
-        className={classes.fabButton}
-        onClick={toggleDrawer('bottom', true)}
-      >
+    <div>
+      <Fab className={classes.fabButton} onClick={toggleDrawer('bottom', true)}>
         <Add style={{ color: 'white' }} />
       </Fab>
       <Drawer
+        docked={false}
         anchor={'bottom'}
-        open={state.bottom}
-        onClose={toggleDrawer('bottom', false)}
+        open={showDrawer}
+        onClose={toggleDrawer(false)}
       >
         {list('bottom')}
       </Drawer>
-    </React.Fragment>
+    </div>
   );
 }
