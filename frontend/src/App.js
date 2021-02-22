@@ -7,21 +7,16 @@ import Signup from './components/auth/Signup';
 import TopBar from './components/navbar/TopNavbar';
 import ShowCardSpread from './components/card_spreads/ShowCardSpread';
 import CardInfo from './components/cards/SingleCardExplanation';
+import { AuthRoute, ProtectedRoute } from './components/auth/SpecialRoutes';
 
 function App() {
   return (
     <div id='app'>
       <TopBar />
       <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/signin'>
-          <Signin />
-        </Route>
-        <Route path='/signup'>
-          <Signup />
-        </Route>
+        <ProtectedRoute exact path='/' component={Home} />
+        <AuthRoute path='/signin' component={Signin} />
+        <AuthRoute path='/signup' component={Signup} />
         <Route path='/cardspreads/:cardSpreadId'>
           <ShowCardSpread />
         </Route>

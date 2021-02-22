@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     border: '2px solid white',
     '&:not(:first-of-type)': {
-      marginLeft: -theme.spacing.unit,
+      marginLeft: -theme.spacing(1),
     },
   },
 }));

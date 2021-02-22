@@ -48,11 +48,11 @@ export default function TemporaryDrawer({ note }) {
 
   return (
     <div>
-      <Fab className={classes.fabButton} onClick={toggleDrawer('bottom', true)}>
+      <Fab className={classes.fabButton} onClick={toggleDrawer(true)}>
         <Add style={{ color: 'white' }} />
       </Fab>
       <Drawer
-        docked={false}
+        docked={'false'}
         anchor={'bottom'}
         open={showDrawer}
         onClose={toggleDrawer(false)}

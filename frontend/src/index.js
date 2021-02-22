@@ -5,6 +5,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 import configureStore from './store/ConfigureStore';
 import { actionSignout } from './actions/SessionActions';
+import { setAuthToken } from './apis/SessionApi';
 import jwt_decode from 'jwt-decode';
 
 import './index.css';
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore({ session: { isAuthenticated: true, user } });
     if (user.exp <= Date.now() / 1000) store.dispatch(actionSignout());
   }
+  window.store = store;
   ReactDOM.render(
     <Provider store={store}>
       <CssBaseline />

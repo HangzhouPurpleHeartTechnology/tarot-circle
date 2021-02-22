@@ -24,6 +24,7 @@ router.get('/:userId', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+  console.log('reach here')
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -43,6 +44,7 @@ router.post('/signup', (req, res) => {
         username: req.body.username,
         phoneNumber: req.body.phoneNumber,
         password: req.body.password,
+        password2: req.body.password2,
         ...req.body,
       });
 
@@ -82,7 +84,7 @@ router.post('/signin', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const username = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
   User.findOne({ username }).then((user) => {

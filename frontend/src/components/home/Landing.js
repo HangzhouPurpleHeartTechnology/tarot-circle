@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Typography, Fade } from '@material-ui/core';
 import Background from '../Background';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   welcome: {
@@ -22,7 +23,7 @@ const Welcome = () => {
   );
 };
 
-function Landing() {
+function Landing({ isLoggedIn }) {
   const [disp, setDisp] = useState(true);
   const [zIndex, setZIndex] = useState(999);
   useEffect(() => {
@@ -31,6 +32,9 @@ function Landing() {
       setZIndex(-1);
     }, 1000);
   }, []);
+  if (isLoggedIn) {
+    return null;
+  }
   return (
     <Fade
       in={disp}
@@ -44,4 +48,6 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default connect((state) => ({
+  isLoggedIn: state.session.isAuthenticated,
+}))(Landing);

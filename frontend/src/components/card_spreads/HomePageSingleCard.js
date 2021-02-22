@@ -30,10 +30,7 @@ export default function App() {
           className={classes.content}
           onClick={() => history.push('/cardspreads/1')}
         >
-          <h3
-            gutterBottom
-            style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}
-          >
+          <h3 style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}>
             Tomorrow's Math Exam
           </h3>
           <p variant='caption'>
