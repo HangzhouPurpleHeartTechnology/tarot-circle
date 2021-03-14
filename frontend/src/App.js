@@ -17,8 +17,7 @@ function App() {
         <ProtectedRoute exact path='/' component={Home} />
         <AuthRoute path='/signin' component={Signin} />
         <AuthRoute path='/signup' component={Signup} />
-        <Route path='/cardspreads/:cardSpreadId'>
-          <ShowCardSpread />
+        <Route path='/cardspreads/:cardSpreadId'>          <ShowCardSpread />
         </Route>
         <Route path='/card/:cardIndex'>
           <CardInfo />

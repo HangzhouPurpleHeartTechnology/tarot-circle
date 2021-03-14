@@ -61,10 +61,6 @@ export default function TemporaryDrawer({ note }) {
             <h3 className={classes.menuItem}>Another Level</h3>
           </ListItem>
           <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>But</h3>
-          </ListItem>
-          <Divider className={classes.divider} />
         </List>
       </div>
     );

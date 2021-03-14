@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   list: {
     width: 380,
-    height: '100%',
     [theme.breakpoints.up('md')]: {
       width: 450,
     },
@@ -30,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     padding: 15,
     borderRadius: 999,
-    position: 'absolute',
-    bottom: 50,
+    position: 'fixed',
+    bottom: 30,
     left: 30,
     backgroundColor: 'white',
   },
