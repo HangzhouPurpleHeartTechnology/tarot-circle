@@ -1,10 +1,10 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { useHistory } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function ButtonAppBar() {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <AppBar
       position='fixed'
@@ -14,7 +14,7 @@ export default function ButtonAppBar() {
         backgroundPosition: 'top',
         cursor: 'pointer',
       }}
-      elevation={10}
+      elevation={3}
     >
       <Toolbar
         style={{
@@ -22,7 +22,12 @@ export default function ButtonAppBar() {
           justifyContent: 'center',
         }}
       >
-        <h1 style={{ fontWeight: 'bold' }} onClick={() => history.push('/')}>
+        <h1
+          style={{ fontWeight: 'bold' }}
+          onClick={() => {
+            navigate('/');
+          }}
+        >
           TAROT CIRCLE
         </h1>
       </Toolbar>

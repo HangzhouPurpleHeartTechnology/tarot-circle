@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Fade } from '@material-ui/core';
+import { Grid, Fade } from '@mui/material';
 import Card from './HomePageSingleCard';
 import Background from '../Background';
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Typography, Fade } from '@material-ui/core';
+import { Typography, Fade } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Background from '../Background';
 import { connect } from 'react-redux';
 
@@ -18,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Welcome = () => {
   const classes = useStyles();
-  return (
-    <Typography className={classes.welcome}>Welcome to TAROT CIRCLE</Typography>
-  );
+  return <Typography className={classes.welcome}>Welcome to TAROT CIRCLE</Typography>;
 };
 
 function Landing({ isLoggedIn }) {
@@ -36,11 +35,7 @@ function Landing({ isLoggedIn }) {
     return null;
   }
   return (
-    <Fade
-      in={disp}
-      timeout={{ enter: 0, exit: 1000 }}
-      style={{ display: disp }}
-    >
+    <Fade in={disp} timeout={{ enter: 0, exit: 1000 }} style={{ display: disp }}>
       <div>
         <Background component={Welcome} zIndex={zIndex} />
       </div>

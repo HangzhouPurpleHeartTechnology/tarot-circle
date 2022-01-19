@@ -1,6 +1,8 @@
-import { InputBase, withStyles, fade } from '@material-ui/core';
+import { InputBase } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 
-const BootstrapInput = withStyles((theme) => ({
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
   root: {
     'label + &': {
       marginTop: theme.spacing(3),
@@ -17,9 +19,9 @@ const BootstrapInput = withStyles((theme) => ({
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: "'Oswald', sans-serif",
     '&:focus': {
-      boxShadow: `${fade('#9103EA', 0.25)} 0 0 0 0.2rem`,
+      boxShadow: `purple 0 0 0 0.01rem`,
     },
   },
-}))(InputBase);
+}));
 
 export default BootstrapInput;

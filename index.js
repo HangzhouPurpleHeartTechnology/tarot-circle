@@ -9,14 +9,12 @@ const path = require('path');
 
 const users = require('./routes/api/v1/users');
 
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
-
 
 run();
 
@@ -28,5 +26,5 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/users/', users);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`server is running on ${port}`));

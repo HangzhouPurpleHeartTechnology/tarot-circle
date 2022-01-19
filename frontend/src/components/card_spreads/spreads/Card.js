@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
 const bg =
   'https://res.cloudinary.com/willwang/image/upload/v1613426943/%E5%91%BD%E8%BF%90%E4%B9%8B%E8%BD%AE_okxnco.png';
 

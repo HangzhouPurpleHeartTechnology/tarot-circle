@@ -1,7 +1,7 @@
 import React from 'react';
-import { Avatar, Card, CardMedia, CardContent } from '@material-ui/core';
-import { Divider } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { Avatar, Card, CardMedia, CardContent } from '@mui/material';
+import { Divider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import useStyles from './HomePageStyles';
 
 const faces = [
@@ -12,7 +12,7 @@ const faces = [
 
 export default function App() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -23,20 +23,20 @@ export default function App() {
           }
           onClick={(e) => {
             e.nativeEvent.stopPropagation();
-            history.push('/card/1');
+            navigate('/card/1');
           }}
         />
         <CardContent
           className={classes.content}
-          onClick={() => history.push('/cardspreads/1')}
+          onClick={() => navigate('/cardspreads/1')}
         >
           <h3 style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}>
             Tomorrow's Math Exam
           </h3>
           <p variant='caption'>
-            I'm about to take a very import math exam tomorrow, don't know how
-            the result would be. I'm super worried know. Can someone help me to
-            see the cards I drew. Thanks.
+            I'm about to take a very import math exam tomorrow, don't know how the result
+            would be. I'm super worried know. Can someone help me to see the cards I drew.
+            Thanks.
           </p>
           <Divider className={classes.divider} light />
           <div style={{ display: 'flex', flexDirection: 'column' }}>

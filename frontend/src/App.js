@@ -1,5 +1,5 @@
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/BottomNavbar';
 import Signin from './components/auth/Signin';
@@ -7,22 +7,54 @@ import Signup from './components/auth/Signup';
 import TopBar from './components/navbar/TopNavbar';
 import ShowCardSpread from './components/card_spreads/ShowCardSpread';
 import CardInfo from './components/cards/SingleCardExplanation';
-import { AuthRoute, ProtectedRoute } from './components/auth/SpecialRoutes';
+import BirthCharts from './components/birth_charts/BirthCharts';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
+  const { isAuthenticated } = useSelector((state: any) => state.session, shallowEqual);
+
+  function RequireAuth({ children, redirectTo }) {
+    return isAuthenticated ? children : <Navigate to={redirectTo} />;
+  }
+  function AuthRoutes({ children, redirectTo }) {
+    return isAuthenticated ? <Navigate to={redirectTo} /> : children;
+  }
+
   return (
     <div id='app'>
       <TopBar />
-      <Switch>
-        <ProtectedRoute exact path='/' component={Home} />
-        <AuthRoute path='/signin' component={Signin} />
-        <AuthRoute path='/signup' component={Signup} />
-        <Route path='/cardspreads/:cardSpreadId'>          <ShowCardSpread />
-        </Route>
-        <Route path='/card/:cardIndex'>
-          <CardInfo />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route
+          path='/'
+          exact
+          element={
+            <RequireAuth redirectTo='/signin'>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/signin'
+          element={
+            <AuthRoutes redirectTo='/'>
+              <Signin />
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path='/signup'
+          element={
+            <AuthRoutes redirectTo='/'>
+              <Signup />
+            </AuthRoutes>
+          }
+        />
+        <Route path='/cardspreads/:cardSpreadId' element={<ShowCardSpread />}></Route>
+        <Route path='/card/:cardIndex' element={<CardInfo />}></Route>
+        <Route path='/birthcharts' element={<BirthCharts />}></Route>
+      </Routes>
       <Navbar />
     </div>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Button, Drawer, IconButton } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
-import { Edit } from '@material-ui/icons';
+import { Button, Drawer, IconButton } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
 import useStyles from './DrawerStyles';
 
 export default function TemporaryDrawer({ note }) {
@@ -18,10 +18,7 @@ export default function TemporaryDrawer({ note }) {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
 
@@ -67,11 +64,7 @@ export default function TemporaryDrawer({ note }) {
       >
         My Notes
       </Button>
-      <Drawer
-        anchor={'right'}
-        open={state.right}
-        onClose={toggleDrawer('right', false)}
-      >
+      <Drawer anchor={'right'} open={state.right} onClose={toggleDrawer('right', false)}>
         {list('right')}
       </Drawer>
     </React.Fragment>

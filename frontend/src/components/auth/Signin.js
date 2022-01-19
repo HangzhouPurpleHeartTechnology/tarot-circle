@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import Background from '../Background';
-import { Fade, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { Fade, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import useStyles from './AuthStyles';
 import Input from '../input/Input';
-import { actionSignin } from '../../actions/SessionActions'
+import { actionSignin } from '../../actions/SessionActions';
 
 const SigninForm = ({ signinUser }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const handleSubmit = () => {
     const userData = { username, password };
     signinUser(userData);
-  }
+  };
   return (
     <Fade in timeout={400}>
       <form className={classes.root} onSubmit={handleSubmit}>
@@ -29,7 +29,11 @@ const SigninForm = ({ signinUser }) => {
           </label>
           <label className={classes.labels}>
             <h2>PASSWORD:</h2>
-            <Input type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              type='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </label>
         </div>
         <p style={{ color: 'purple' }}>
@@ -40,12 +44,20 @@ const SigninForm = ({ signinUser }) => {
               textDecoration: 'underline',
               cursor: 'pointer',
             }}
-            onClick={() => history.push('/signup')}
+            onClick={() => navigate('/signup')}
           >
             SIGN UP
           </span>
         </p>
-        <Button type="submit" variant='contained' className={classes.button} onClick={(e) => { e.preventDefault(); handleSubmit() }} >
+        <Button
+          type='submit'
+          variant='contained'
+          className={classes.button}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
           SIGN IN
         </Button>
       </form>
@@ -53,8 +65,10 @@ const SigninForm = ({ signinUser }) => {
   );
 };
 
-const mapStateToProps = state => ({ sessionErrors: state.errors })
-const mapDispatchToProps = dispatch => ({ signinUser: (user) => dispatch(actionSignin(user)) })
+const mapStateToProps = (state) => ({ sessionErrors: state.errors });
+const mapDispatchToProps = (dispatch) => ({
+  signinUser: (user) => dispatch(actionSignin(user)),
+});
 const SigninContainer = connect(mapStateToProps, mapDispatchToProps)(SigninForm);
 
 function Signin() {
