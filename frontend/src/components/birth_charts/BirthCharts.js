@@ -7,6 +7,7 @@ import Input from '../input/Input';
 
 const BirthCharts = () => {
   const [value, setValue] = React.useState(new Date());
+  const [birthChart, setBirtChart] = useState(undefined);
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -24,19 +25,19 @@ const BirthCharts = () => {
     'semi-sextile': 1,
   };
 
-  useEffect(() => {
+  const generateChart = () => {
     const origin = new Origin({
       year: value.getFullYear(),
       month: value.getMonth(),
       date: value.getDate(),
       hour: value.getHours(),
       minute: value.getMinutes(),
-      latitude: 40.0,
-      longitude: -70.0,
+      latitude: 41.1167,
+      longitude: 121.12938,
     });
     const horoscope = new Horoscope({
       origin,
-      houseSystem: 'whole-sign',
+      houseSystem: 'placidus',
       zodiac: 'tropical',
       aspectPoints: ['bodies', 'points', 'angles'],
       aspectWithPoints: ['bodies', 'points', 'angles'],
@@ -45,7 +46,10 @@ const BirthCharts = () => {
       language: 'en',
     });
     console.log(horoscope);
-  }, [value]);
+    const data = horoscope.CelestialBodies.all;
+    setBirtChart(data);
+    // setInfo(JSON.stringify(horoscope._celestialBodies.all));
+  };
 
   return (
     <div
@@ -88,12 +92,32 @@ const BirthCharts = () => {
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
           />
-          <Button variant='outlined' color='secondary'>
+          <Button variant='outlined' color='secondary' onClick={generateChart}>
             GENERATE BIRTH CHART
           </Button>
         </Box>
       </Box>
-      <Box></Box>
+      <Box>
+        {birthChart
+          ? birthChart.map((el) => {
+              return (
+                <div>
+                  <Typography
+                    variant='h6'
+                    style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
+                  >
+                    {el.label}: {el.Sign.label}
+                  </Typography>
+                  <Typography variant='body1' style={{ color: 'purple' }}>
+                    House: {el.House.label}
+                  </Typography>
+
+                  {/* <Typography variant='body1' style={{ color: 'purple' }}> Angles: {el.} */}
+                </div>
+              );
+            })
+          : null}
+      </Box>
     </div>
   );
 };
