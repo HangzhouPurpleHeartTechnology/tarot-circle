@@ -7,8 +7,8 @@ function Card({ card }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundImage: `url(${card || bg})`,
-      width: '12em',
-      height: '21em',
+      width: '8rem',
+      height: '14rem',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
     },

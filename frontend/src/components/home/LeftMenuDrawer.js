@@ -127,10 +127,29 @@ const LeftMenuDrawer = ({ note }) => {
       <div className={classes.drawerContent}>
         <div className={classes.drawerTitle}>
           <h1 style={{ fontWeight: 100 }}>
-            Welcome to <span style={{ fontWeight: 800 }}>Tarot Circle</span>
+            Welcome to{' '}
+            <span
+              onClick={() => {
+                navigate('/');
+                setState('left', false);
+              }}
+              style={{ fontWeight: 800, cursor: 'pointer' }}
+            >
+              Tarot Circle
+            </span>
           </h1>
         </div>
         <List>
+          <ListItem
+            onClick={() => {
+              navigate('/');
+              setState('left', false);
+            }}
+            style={{ cursor: 'pointer' }}
+          >
+            <h3 className={classes.menuItem}>Home</h3>
+          </ListItem>
+          <Divider className={classes.divider} />
           <Divider className={classes.divider} />
           <ListItem
             style={{ cursor: 'pointer' }}
@@ -139,15 +158,23 @@ const LeftMenuDrawer = ({ note }) => {
               setState('left', false);
             }}
           >
-            <h3 className={classes.menuItem}>Hello World</h3>
+            <h3 className={classes.menuItem}>Generate Your Birth Chart</h3>
           </ListItem>
           <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>What is this</h3>
+          <ListItem className={classes.menuItem}>
+            <h3
+              className={classes.menuItem}
+              onClick={() => {
+                navigate('/savedcharts');
+                setState('left', false);
+              }}
+            >
+              ALL MY SAVED CHARTS
+            </h3>
           </ListItem>
           <Divider className={classes.divider} />
-          <ListItem style={{ cursor: 'pointer' }}>
-            <h3 className={classes.menuItem}>Another Level</h3>
+          <ListItem className={classes.menuItem}>
+            <h3>TBD</h3>
           </ListItem>
           <Divider className={classes.divider} />
         </List>

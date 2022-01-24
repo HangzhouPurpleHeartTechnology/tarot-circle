@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 #app {
   font-family: Oswald, sans-serif;
 }

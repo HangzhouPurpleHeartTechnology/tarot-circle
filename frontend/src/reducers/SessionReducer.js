@@ -1,9 +1,9 @@
 import { REMOVE_SESSION_USER, RECEIVE_SESSION_USER } from '../actions/SessionActions';
-export default (oldState = {}, action) => {
+const sessionReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
   switch (action.type) {
     case RECEIVE_SESSION_USER:
-      return { isAuthenticated: true, user: action.payload.user }
+      return { isAuthenticated: true, user: action.payload };
     case REMOVE_SESSION_USER:
       localStorage.removeItem('jwtToken');
       return { isAuthenticated: false, user: null };
@@ -11,3 +11,5 @@ export default (oldState = {}, action) => {
       return oldState;
   }
 };
+
+export default sessionReducer;

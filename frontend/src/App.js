@@ -8,6 +8,7 @@ import TopBar from './components/navbar/TopNavbar';
 import ShowCardSpread from './components/card_spreads/ShowCardSpread';
 import CardInfo from './components/cards/SingleCardExplanation';
 import BirthCharts from './components/birth_charts/BirthCharts';
+import UserSavedCharts from './components/birth_charts/UserSavedCharts';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -51,9 +52,10 @@ function App() {
             </AuthRoutes>
           }
         />
-        <Route path='/cardspreads/:cardSpreadId' element={<ShowCardSpread />}></Route>
-        <Route path='/card/:cardIndex' element={<CardInfo />}></Route>
-        <Route path='/birthcharts' element={<BirthCharts />}></Route>
+        <Route path='/cardspreads/:cardSpreadId' element={<ShowCardSpread />} />
+        <Route path='/card/:cardIndex' element={<CardInfo />} />
+        <Route path='/birthcharts' element={<BirthCharts />} />
+        <Route path='/savedcharts' element={<UserSavedCharts />} />
       </Routes>
       <Navbar />
     </div>

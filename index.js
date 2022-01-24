@@ -8,6 +8,7 @@ const passport = require('passport');
 const path = require('path');
 
 const users = require('./routes/api/v1/users');
+const birthcharts = require('./routes/api/v1/birthcharts');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -16,8 +17,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-run();
-
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
@@ -25,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api/v1/users/', users);
+app.use('/api/v1/birthcharts/', birthcharts);
+
+run();
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`server is running on ${port}`));

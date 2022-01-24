@@ -1,24 +1,29 @@
 import React from 'react';
 import { Grid, Fade } from '@mui/material';
-import Card from './HomePageSingleCard';
+import Card from './HomePageSinglePost';
 import Background from '../Background';
 
 const Cards = () => (
   <Fade in={true} timeout={{ enter: 2000 }}>
-    <Grid container style={{ marginBottom: 200, marginTop: 70 }}>
-      <Grid item xs={12} sm={6} md={4}>
+    <Grid
+      container
+      style={{
+        marginBottom: 200,
+      }}
+    >
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <Card />
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <Card />
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <Card />
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <Card />
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
         <Card />
       </Grid>
     </Grid>

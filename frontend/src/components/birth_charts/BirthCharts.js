@@ -1,124 +1,215 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Typography, Box, Button, TextField } from '@mui/material';
 import { MobileDatePicker, TimePicker } from '@mui/lab';
-import { Origin, Horoscope } from 'circular-natal-horoscope-js';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import Input from '../input/Input';
 
 const BirthCharts = () => {
-  const [value, setValue] = React.useState(new Date());
+  const [error, setError] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [dateTime, setDateTime] = React.useState(new Date());
   const [birthChart, setBirtChart] = useState(undefined);
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
+  const user = useSelector((state) => state.session.user.id);
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const handleChange = (newDateTime) => {
+    setDateTime(newDateTime);
   };
-  const customOrbs = {
-    conjunction: 8,
-    opposition: 8,
-    trine: 8,
-    square: 7,
-    sextile: 6,
-    quincunx: 5,
-    quintile: 1,
-    septile: 1,
-    'semi-square': 1,
-    'semi-sextile': 1,
+
+  const handleSubmit = () => {
+    if (!birthChart || !nickname) {
+      setError('Please check birth date and nick name');
+      return;
+    }
+    const data = { dateTime, lat, lng, user, nickname };
+    axios
+      .post('/api/v1/birthcharts/', data)
+      .then((res) => {
+        console.log('res data', res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const generateChart = () => {
-    const origin = new Origin({
-      year: value.getFullYear(),
-      month: value.getMonth(),
-      date: value.getDate(),
-      hour: value.getHours(),
-      minute: value.getMinutes(),
-      latitude: 41.1167,
-      longitude: 121.12938,
-    });
-    const horoscope = new Horoscope({
-      origin,
-      houseSystem: 'placidus',
-      zodiac: 'tropical',
-      aspectPoints: ['bodies', 'points', 'angles'],
-      aspectWithPoints: ['bodies', 'points', 'angles'],
-      aspectTypes: ['major', 'minor'],
-      customOrbs: customOrbs,
-      language: 'en',
-    });
-    console.log(horoscope);
-    const data = horoscope.CelestialBodies.all;
-    setBirtChart(data);
-    // setInfo(JSON.stringify(horoscope._celestialBodies.all));
+    const data = {
+      dateTime,
+      lat,
+      lng,
+      nickname,
+    };
+    axios
+      .post('/api/v1/birthcharts/generatechart', data)
+      .then((res) => {
+        console.log('res data', res.data);
+        setBirtChart(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
-    <div
-      style={{
-        padding: '100px 20px 0 20px',
+    <Box
+      sx={{
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: '100%',
+        flexDirection: { xs: 'column', md: 'row' },
+        mb: '7rem',
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', paddingTop: 3, width: '50%' }}>
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          paddingTop: 3,
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          minWidth: 400,
+        }}
+      >
         <Typography
           variant='h6'
           style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
         >
           Birth Date and Time Picker
         </Typography>
+        <Typography variant='caption' style={{ height: 15, color: 'red' }}>
+          {error ? error : ' '}{' '}
+        </Typography>
         <Box
           sx={{
             width: '50%',
             display: 'flex',
             flexDirection: 'column',
-            height: '30vh',
             alignItems: 'space-around',
+            minHeight: '50vh',
             justifyContent: 'space-around',
           }}
         >
           <MobileDatePicker
             label='BIRTH DATE'
             inputFormat='MM/dd/yyyy'
-            value={value}
+            value={dateTime}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
             style={{ margin: '20px 0' }}
           />
           <TimePicker
             label='BIRTH TIME'
-            value={value}
+            value={dateTime}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
           />
           <Button variant='outlined' color='secondary' onClick={generateChart}>
             GENERATE BIRTH CHART
           </Button>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: 200,
+              justifyContent: 'space-around',
+            }}
+          >
+            <Input
+              color='secondary'
+              placeholder='Nick Name'
+              sx={{ '.MuiInputBase-input': { height: 40 } }}
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+            <Button
+              color='secondary'
+              variant='outlined'
+              style={{ height: 40 }}
+              onClick={handleSubmit}
+            >
+              Save Birth Chart
+            </Button>
+          </Box>
         </Box>
       </Box>
-      <Box>
-        {birthChart
-          ? birthChart.map((el) => {
-              return (
-                <div>
-                  <Typography
-                    variant='h6'
-                    style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
-                  >
-                    {el.label}: {el.Sign.label}
-                  </Typography>
-                  <Typography variant='body1' style={{ color: 'purple' }}>
-                    House: {el.House.label}
-                  </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', lg: 'row' },
+          flex: { xs: 1, md: 2 },
+        }}
+      >
+        <Box
+          sx={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '700px',
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: '#eee',
+              width: 400,
+              height: 400,
+              borderRadius: 999,
+              mt: '2rem',
+            }}
+          ></Box>
+        </Box>
 
-                  {/* <Typography variant='body1' style={{ color: 'purple' }}> Angles: {el.} */}
-                </div>
-              );
-            })
-          : null}
+        <Box
+          sx={{
+            display: 'flex',
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            mt: '2rem',
+            minWidth: 400,
+          }}
+        >
+          <Box>
+            {birthChart
+              ? birthChart?.map((el) => {
+                  return (
+                    <Box key={el.key}>
+                      <Typography
+                        variant='h6'
+                        style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
+                      >
+                        <span style={{ fontWeight: 'bold' }}>{el?.label}</span>:{' '}
+                        {el?.Sign?.label}
+                      </Typography>
+                    </Box>
+                  );
+                })
+              : null}
+          </Box>
+          <Box>
+            {birthChart
+              ? birthChart?.map((el) => {
+                  return (
+                    <div key={el.key}>
+                      <Typography
+                        variant='h6'
+                        style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
+                      >
+                        <span variant='body1' style={{ color: 'purple' }}>
+                          <span style={{ fontWeight: 'bold' }}>House: </span>
+                          {el?.House?.label}
+                        </span>
+                      </Typography>
+                    </div>
+                  );
+                })
+              : null}
+          </Box>
+        </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 

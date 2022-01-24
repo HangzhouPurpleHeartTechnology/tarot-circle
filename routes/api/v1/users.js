@@ -24,7 +24,7 @@ router.get('/:userId', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-  console.log('reach here')
+  console.log('reach here');
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -60,7 +60,7 @@ router.post('/signup', (req, res) => {
               jwt.sign(
                 payload,
                 keys.secretOrKey,
-                { expiresIn: 3600 * 12 },
+                { expiresIn: 3600000 * 12 },
                 (_err, token) => {
                   res.json({
                     payload,
@@ -96,17 +96,12 @@ router.post('/signin', (req, res) => {
       if (isMatch) {
         const payload = sessionUserPayload(user);
 
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 * 12 },
-          (_err, token) => {
-            res.json({
-              success: true,
-              token: 'Bearer ' + token,
-            });
-          }
-        );
+        jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 * 12 }, (_err, token) => {
+          res.json({
+            success: true,
+            token: 'Bearer ' + token,
+          });
+        });
       } else {
         return res.status(400).json({ password: 'Incorrect password' });
       }

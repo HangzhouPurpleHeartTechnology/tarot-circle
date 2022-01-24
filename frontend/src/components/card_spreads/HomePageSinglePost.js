@@ -10,26 +10,19 @@ const faces = [
   'https://res.cloudinary.com/willwang/image/upload/v1608278737/Rex_Gao_epgmo7.jpg',
 ];
 
-export default function App() {
+export default function HomePagePost() {
   const classes = useStyles();
   const navigate = useNavigate();
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} onClick={() => navigate('/cardspreads/1')}>
         <CardMedia
           className={classes.media}
           image={
             'https://res.cloudinary.com/willwang/image/upload/v1613349049/cards_e6btyx.png'
           }
-          onClick={(e) => {
-            e.nativeEvent.stopPropagation();
-            navigate('/card/1');
-          }}
         />
-        <CardContent
-          className={classes.content}
-          onClick={() => navigate('/cardspreads/1')}
-        >
+        <CardContent className={classes.content}>
           <h3 style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}>
             Tomorrow's Math Exam
           </h3>
