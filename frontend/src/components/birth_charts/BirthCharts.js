@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Input from '../input/Input';
+import ChartImageGenerator from './ChartImageGenerator';
 
 const BirthCharts = () => {
   const [error, setError] = useState('');
@@ -58,7 +59,6 @@ const BirthCharts = () => {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
-        mb: '7rem',
       }}
     >
       <Box
@@ -111,12 +111,16 @@ const BirthCharts = () => {
           <Box
             sx={{
               display: 'flex',
+              opacity: birthChart ? 1 : 0,
+              userSelect: birthChart ? '' : 'none',
               flexDirection: 'column',
               minHeight: 200,
               justifyContent: 'space-around',
+              transition: 'opacity 0.5s ease',
             }}
           >
             <Input
+              disabled={!birthChart}
               color='secondary'
               placeholder='Nick Name'
               sx={{ '.MuiInputBase-input': { height: 40 } }}
@@ -124,6 +128,7 @@ const BirthCharts = () => {
               onChange={(e) => setNickname(e.target.value)}
             />
             <Button
+              disabled={!birthChart}
               color='secondary'
               variant='outlined'
               style={{ height: 40 }}
@@ -157,8 +162,13 @@ const BirthCharts = () => {
               height: 400,
               borderRadius: 999,
               mt: '2rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-          ></Box>
+          >
+            <ChartImageGenerator />
+          </Box>
         </Box>
 
         <Box
@@ -178,7 +188,11 @@ const BirthCharts = () => {
                     <Box key={el.key}>
                       <Typography
                         variant='h6'
-                        style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
+                        style={{
+                          color: 'purple',
+                          marginTop: 10,
+                          marginBottom: 10,
+                        }}
                       >
                         <span style={{ fontWeight: 'bold' }}>{el?.label}</span>:{' '}
                         {el?.Sign?.label}
@@ -195,12 +209,18 @@ const BirthCharts = () => {
                     <div key={el.key}>
                       <Typography
                         variant='h6'
-                        style={{ color: 'purple', marginTop: 20, marginBottom: 10 }}
+                        style={{
+                          color: 'purple',
+                          marginTop: 10,
+                          marginBottom: 10,
+                        }}
                       >
-                        <span variant='body1' style={{ color: 'purple' }}>
-                          <span style={{ fontWeight: 'bold' }}>House: </span>
-                          {el?.House?.label}
-                        </span>
+                        {el?.House?.label ? (
+                          <span variant='body1' style={{ color: 'purple' }}>
+                            <span style={{ fontWeight: 'bold' }}>House: </span>
+                            {el?.House?.label}
+                          </span>
+                        ) : null}
                       </Typography>
                     </div>
                   );
