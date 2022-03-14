@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/BottomNavbar';
 import Signin from './components/auth/Signin';
@@ -14,7 +14,11 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
-  const { isAuthenticated } = useSelector((state: any) => state.session, shallowEqual);
+  const [language, setLanguage] = useState('en');
+  const { isAuthenticated } = useSelector(
+    (state) => state.session,
+    shallowEqual
+  );
 
   function RequireAuth({ children, redirectTo }) {
     return isAuthenticated ? children : <Navigate to={redirectTo} />;
@@ -22,6 +26,10 @@ function App() {
   function AuthRoutes({ children, redirectTo }) {
     return isAuthenticated ? <Navigate to={redirectTo} /> : children;
   }
+
+  const handleChangeLanguage = () => {
+    setLanguage((language) => (language === 'en' ? 'zh' : 'en'));
+  };
 
   return (
     <div id='app'>

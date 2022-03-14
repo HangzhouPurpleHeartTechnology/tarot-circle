@@ -4,7 +4,7 @@ import { Drawer, Button, Fab } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import Content from './draw_card_logics';
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   list: {
     width: 380,
     [theme.breakpoints.up('md')]: {
@@ -82,8 +82,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Oswald',
   },
   bottomDrawerTitle: {
-    maxWidth: 350,
-    textAlign: 'center',
+    maxWidth: 550,
+    fontWeight: 'bold',
+    marginBottom: '5vh',
   },
 }));
 
@@ -92,7 +93,10 @@ export default function TemporaryDrawer({ note }) {
   const [showDrawer, setShowDrawer] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
       return;
     }
 
@@ -117,9 +121,6 @@ export default function TemporaryDrawer({ note }) {
   const CardNote = () => {
     return (
       <div className={classes.bottomDrawerContent}>
-        <h1 className={classes.bottomDrawerTitle}>
-          Simply Describe Your Question and Start Drawing
-        </h1>
         <Content />
       </div>
     );
