@@ -33,7 +33,6 @@ function TitleAndDescription() {
         <Input
           multiline
           rows={5}
-          rowsMax={7}
           className={classes.input}
           placeholder='a simple description of the situation...'
         />
