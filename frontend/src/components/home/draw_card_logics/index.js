@@ -3,6 +3,7 @@ import TitleAndDescription from './TitleAndDescription';
 import DrawCard from './DrawCard';
 import { Button, Box } from '@mui/material';
 import { useStyles } from '../BottomDrawer';
+import DrawFromDeck from './DrawFromDeck';
 
 function DrawCardLogic() {
   const classes = useStyles();
@@ -37,7 +38,7 @@ function DrawCardLogic() {
       </div>
     );
   } else {
-    return <div>Starting to Draw</div>;
+    return <DrawFromDeck />;
   }
 }
 

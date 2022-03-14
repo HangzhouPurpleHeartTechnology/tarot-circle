@@ -103,7 +103,7 @@ export default function TemporaryDrawer({ note }) {
     setShowDrawer(open);
   };
 
-  const list = (anchor) => (
+  const List = ({ anchor }) => (
     <div className={classes.bottomList}>
       <CardNote note={note} anchor={anchor} />
       <Button
@@ -137,7 +137,7 @@ export default function TemporaryDrawer({ note }) {
         open={showDrawer}
         onClose={toggleDrawer(false)}
       >
-        {list('bottom')}
+        <List anchor={'bottom'} />
       </Drawer>
     </div>
   );

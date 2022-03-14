@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FoldCard() {
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <img src={background} alt='card back' />
