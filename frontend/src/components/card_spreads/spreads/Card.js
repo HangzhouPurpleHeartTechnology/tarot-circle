@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-const bg =
-  'https://res.cloudinary.com/willwang/image/upload/v1613426943/%E5%91%BD%E8%BF%90%E4%B9%8B%E8%BD%AE_okxnco.png';
 
-function Card({ card }) {
+function Card({ card, height, width }) {
+  card =
+    card ||
+    'https://res.cloudinary.com/willwang/image/upload/v1613426943/%E5%91%BD%E8%BF%90%E4%B9%8B%E8%BD%AE_okxnco.png';
   const useStyles = makeStyles((theme) => ({
     root: {
-      backgroundImage: `url(${card || bg})`,
-      width: '8rem',
-      height: '14rem',
+      height: '100%',
+      backgroundImage: `url(${card})`,
+      width: width ? width : '8rem',
+      height: height ? height : '14rem',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
     },

@@ -16,13 +16,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TitleAndDescription() {
+function TitleAndDescription({ title, setTitle, description, setDescription }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <div>
         <h1>Title</h1>
         <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className={classes.input}
           placeholder='a title to decribe the event you want to ask...'
         />
@@ -31,9 +33,10 @@ function TitleAndDescription() {
       <label>
         <h1>Description</h1>
         <Input
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           multiline
           rows={5}
-          rowsMax={7}
           className={classes.input}
           placeholder='a simple description of the situation...'
         />

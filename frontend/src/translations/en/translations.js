@@ -1,0 +1,16 @@
+export const TRANSLATIONS_EN = {
+  welcomeTo: 'Welcome to ',
+  appName: 'Tarot Circle',
+  storyTitle: 'STORY TITLE',
+  home: 'Home',
+  generateYourBirthChart: 'Generate Your Birth Chart',
+  allMySavedCharts: 'All My Saved Charts',
+  drawCardPageTitle: 'Simple Describe Your Question and Start Drawing',
+  title: 'Title',
+  titlePlaceHolder: 'a title to describe the event you want to ask',
+  description: 'Description',
+  descriptionPlaceHolder: 'a simple description of the situation',
+  spreadType: 'Spread Type',
+  close: 'close',
+  commenters: 'commenters',
+};
