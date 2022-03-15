@@ -3,6 +3,7 @@ import { Box, Button, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Card from '../../card_spreads/spreads/Card';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -27,8 +28,18 @@ const GridItem = ({ index, cardSpread, setCardSpread, cards }) => {
           if (cardSpread <= -1) return;
           setIsFlipped((isFlipped) => {
             if (isFlipped) {
-              setCardSpread((cardSpread) => cardSpread - 1);
-              setCardPic(cards[cardSpread]);
+              setCardSpread((cardSpread) => {
+                console.log(
+                  'cards',
+                  cards.cards,
+                  cardSpread,
+                  cards?.cards[cardSpread]
+                );
+                setCardPic(
+                  require(`../../../img/card_imgs/${cards?.cards[cardSpread].name_short}.jpg`)
+                );
+                return cardSpread - 1;
+              });
               return false;
             }
           });
@@ -40,9 +51,39 @@ const GridItem = ({ index, cardSpread, setCardSpread, cards }) => {
   );
 };
 
-const DrawFromDeck = ({ cardSpread, setCardSpread }) => {
-  const [cards, setCards] = useState([]);
+const DrawFromDeck = ({
+  cardSpread,
+  setCardSpread,
+  title,
+  description,
+  handleClose,
+}) => {
+  const [ori, setOri] = useState(-1);
   useEffect(() => {
+    setOri(cardSpread);
+  }, []);
+
+  const [cards, setCards] = useState([]);
+  const user = useSelector((state) => state.session.user.id);
+  const handlePublish = () => {
+    const data = {
+      title,
+      description,
+      user,
+      cardSpread: ori,
+      cards: cards?.cards.map((el) => el.name_short),
+    };
+    axios
+      .post('/api/v1/spreads/', data)
+      .then((res) => {
+        console.log('res data', res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    console.log('numbers', cardSpread + 1);
     axios
       .get(
         `https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=${
@@ -52,20 +93,38 @@ const DrawFromDeck = ({ cardSpread, setCardSpread }) => {
       .then((res) => setCards(res.data))
       .catch((err) => console.error(err));
   }, []);
+  useEffect(() => {
+    console.log('cards', cards);
+  }, [cards]);
 
   const cardArray = [...Array(78).keys()];
   return (
-    <Grid container style={{ width: '100%' }} spacing={1}>
-      {cardArray.map((el) => (
-        <GridItem
-          key={el}
-          index={el}
-          cards={cards}
-          cardSpread={cardSpread}
-          setCardSpread={setCardSpread}
-        />
-      ))}
-    </Grid>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <Grid container style={{ width: '100%' }} spacing={1}>
+        {cardArray.map((el) => (
+          <GridItem
+            key={el}
+            index={el}
+            cards={cards}
+            cardSpread={cardSpread}
+            setCardSpread={setCardSpread}
+          />
+        ))}
+      </Grid>
+      <Button
+        disabled={cardSpread !== -1}
+        variant='outlined'
+        color='secondary'
+        style={{ position: 'fixed', bottom: 100, right: 50, zIndex: 100 }}
+        onClick={(e) => {
+          handlePublish();
+          console.log('handle close', handleClose);
+          handleClose(e);
+        }}
+      >
+        publish
+      </Button>
+    </div>
   );
 };
 

@@ -16,9 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DrawCard() {
+function DrawCard({ cardSpread, setCardSpread }) {
   const classes = useStyles();
-  const [cardSpread, setCardSpread] = useState(0);
   const cardBack =
     'https://res.cloudinary.com/willwang/image/upload/v1613623978/cardback_niolpi.png';
   return (

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TitleAndDescription from './TitleAndDescription';
 import DrawCard from './DrawCard';
 import { Button, Box } from '@mui/material';
 import { useStyles } from '../BottomDrawer';
 import DrawFromDeck from './DrawFromDeck';
 
-function DrawCardLogic() {
+function DrawCardLogic({ handleClose }) {
   const classes = useStyles();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cardSpread, setCardSpread] = useState(0);
   const [drawCardSection, setDrawCardSection] = useState(0);
+  useEffect(() => {
+    console.log('card spread', cardSpread);
+  }, [cardSpread]);
 
   if (drawCardSection === 0) {
     return (
@@ -38,7 +41,15 @@ function DrawCardLogic() {
       </div>
     );
   } else {
-    return <DrawFromDeck />;
+    return (
+      <DrawFromDeck
+        cardSpread={cardSpread}
+        setCardSpread={setCardSpread}
+        title={title}
+        description={description}
+        handleClose={handleClose}
+      />
+    );
   }
 }
 

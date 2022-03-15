@@ -10,7 +10,8 @@ const faces = [
   'https://res.cloudinary.com/willwang/image/upload/v1608278737/Rex_Gao_epgmo7.jpg',
 ];
 
-export default function HomePagePost() {
+export default function HomePagePost({ spread, commenters }) {
+  const { title, description, cards, created_at, user } = spread;
   const classes = useStyles();
   const navigate = useNavigate();
   return (
@@ -24,13 +25,9 @@ export default function HomePagePost() {
         />
         <CardContent className={classes.content}>
           <h3 style={{ fontWeight: 'bold', color: '#5D5C58', fontSize: 18 }}>
-            Tomorrow's Math Exam
+            {title}
           </h3>
-          <p variant='caption'>
-            I'm about to take a very import math exam tomorrow, don't know how the result
-            would be. I'm super worried know. Can someone help me to see the cards I drew.
-            Thanks.
-          </p>
+          <p variant='caption'>{description}</p>
           <Divider className={classes.divider} light />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3>commenters</h3>

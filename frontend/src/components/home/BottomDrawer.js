@@ -121,7 +121,7 @@ export default function TemporaryDrawer({ note }) {
   const CardNote = () => {
     return (
       <div className={classes.bottomDrawerContent}>
-        <Content />
+        <Content handleClose={toggleDrawer(false)} />
       </div>
     );
   };
