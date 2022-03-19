@@ -11,12 +11,16 @@ const faces = [
 ];
 
 export default function HomePagePost({ spread, commenters }) {
+  const { _id } = spread;
   const { title, description, cards, created_at, user } = spread;
   const classes = useStyles();
   const navigate = useNavigate();
   return (
     <div className={classes.root}>
-      <Card className={classes.card} onClick={() => navigate('/cardspreads/1')}>
+      <Card
+        className={classes.card}
+        onClick={() => navigate('/cardspreads/' + _id)}
+      >
         <CardMedia
           className={classes.media}
           image={

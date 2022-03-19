@@ -30,5 +30,5 @@ app.use('/api/v1/spreads', spreads);
 
 run();
 
-const port = process.env.PORT || 8383;
+const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`server is running on ${port}`));

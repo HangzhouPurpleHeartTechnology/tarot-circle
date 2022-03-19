@@ -13,12 +13,25 @@ router.post('/', (req, res) => {
 
 router.get('/', (_, res) => {
   Spread.find()
-    .then((result) => {
-      console.log('res', result);
-      res.json(res);
+    .populate('user')
+    .then((spreads) => {
+      console.log('spreads', spreads);
+      res.json(spreads);
     })
     .catch((err) => {
       console.log('err', err);
+    });
+});
+router.get('/:spreadId', (req, res) => {
+  console.log('backend', req.params);
+  Spread.findOne({ _id: req.params.spreadId })
+    .populate('user')
+    .then((spread) => {
+      res.json(spread);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.json(err);
     });
 });
 

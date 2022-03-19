@@ -9,7 +9,6 @@ function HomeCards() {
   useEffect(() => {
     axios.get('/api/v1/spreads').then((res) => {
       console.log('frontend result', res.data);
-      debugger;
       setSpreads(res.data);
     });
   }, []);

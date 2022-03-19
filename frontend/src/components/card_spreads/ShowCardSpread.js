@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
 import ThreeCards from './spreads/ThreeCards';
 import Comments from './PostComments';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
-function ShowCardSpread({ story }) {
-  story ||= {
-    title: 'Story Title',
-    authorName: 'Will Wang',
-    authorBio: 'May the force be with you.',
-    description: `I'm about to take a very import math exam tomorrow, don't know how the result would be. I'm super worried know. Can someone help me to see the cards I drew. Thanks.`,
-    publishedAt: '2020-05-01 15:30 PM',
-  };
+function ShowCardSpread() {
+  const { cardSpreadId } = useParams();
+  const [spread, setSpread] = useState(null);
+  useEffect(() => {
+    axios.get('/api/v1/spreads/' + cardSpreadId).then((res) => {
+      console.log('res hererer', res);
+      setSpread(res.data);
+    });
+  }, []);
+  useEffect(() => {}, [spread]);
+  if (!spread) return null;
+  console.log('spread', spread);
+  const {
+    title,
+    user: { username, bio },
+    description,
+    createdAt,
+  } = spread;
   const Description = () => {
     return (
       <Box
@@ -24,7 +36,12 @@ function ShowCardSpread({ story }) {
         }}
       >
         <Box
-          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', mb: '2rem' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            mb: '2rem',
+          }}
         >
           <Avatar style={{ width: 100, height: 100 }} />
           <Box
@@ -44,14 +61,17 @@ function ShowCardSpread({ story }) {
                 fontFamily: 'Oswald',
               }}
             >
-              {story.authorName}
+              {username}
             </Typography>
-            <Typography variant='h6'>{story.authorBio}</Typography>
+            <Typography variant='h6'>{bio}</Typography>
           </Box>
         </Box>
         <Box>
-          <Typography variant='h5' sx={{ fontWeight: 'bold', fontFamily: 'Oswald' }}>
-            {story.description}
+          <Typography
+            variant='h5'
+            sx={{ fontWeight: 'bold', fontFamily: 'Oswald' }}
+          >
+            {description}
           </Typography>
         </Box>
       </Box>
@@ -85,13 +105,21 @@ function ShowCardSpread({ story }) {
             fontFamily: 'Oswald',
           }}
         >
-          {story?.title.toUpperCase()}
+          {title.toUpperCase()}
         </Typography>
         <Typography
           variant='h6'
           sx={{ fontFamily: 'Oswald', mb: '1rem', color: 'purple' }}
         >
-          {story.publishedAt}
+          {createdAt
+            .split('T')
+            .map((el, idx) => {
+              if (idx === 1) {
+                return el.slice(0, 5);
+              }
+              return el;
+            })
+            .join(' ')}
         </Typography>
       </Box>
       <ThreeCards />
