@@ -12,11 +12,16 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   cursor: 'pointer',
 }));
-const GridItem = ({ index, cardSpread, setCardSpread, cards }) => {
+
+const GridItem = ({ index, cardSpread, cards, setOri, ori }) => {
   const [isFlipped, setIsFlipped] = useState(true);
+  const [finished, setFinished] = useState(false);
   const [cardPic, setCardPic] = useState(
     'https://res.cloudinary.com/willwang/image/upload/v1613623978/cardback_niolpi.png'
   );
+  useEffect(() => {
+    if (ori === cardSpread) setFinished(true);
+  }, [ori]);
   return (
     <Grid item>
       <Item
@@ -25,24 +30,18 @@ const GridItem = ({ index, cardSpread, setCardSpread, cards }) => {
         md={1}
         lg={1}
         onClick={() => {
-          if (cardSpread <= -1) return;
+          if (finished) return;
           setIsFlipped((isFlipped) => {
             if (isFlipped) {
-              setCardSpread((cardSpread) => {
-                console.log(
-                  'cards',
-                  cards.cards,
-                  cardSpread,
-                  cards?.cards[cardSpread]
-                );
-                setCardPic(
-                  require(`../../../img/card_imgs/${cards?.cards[cardSpread].name_short}.jpg`)
-                );
-                return cardSpread - 1;
-              });
+              setCardPic(
+                require(`../../../img/card_imgs/${
+                  cards?.cards[ori + 1].name_short
+                }.jpg`)
+              );
               return false;
             }
           });
+          setOri((ori) => ori + 1);
         }}
       >
         <Card card={cardPic} height='7em' width='4em' index={index}></Card>
@@ -51,19 +50,9 @@ const GridItem = ({ index, cardSpread, setCardSpread, cards }) => {
   );
 };
 
-const DrawFromDeck = ({
-  cardSpread,
-  setCardSpread,
-  title,
-  description,
-  handleClose,
-}) => {
-  const [ori, setOri] = useState(-1);
-  useEffect(() => {
-    setOri(cardSpread);
-  }, []);
-
+const DrawFromDeck = ({ cardSpread, title, description, handleClose }) => {
   const [cards, setCards] = useState([]);
+  const [ori, setOri] = useState(-1);
   const user = useSelector((state) => state.session.user.id);
   const handlePublish = () => {
     const data = {
@@ -93,9 +82,8 @@ const DrawFromDeck = ({
       .then((res) => setCards(res.data))
       .catch((err) => console.error(err));
   }, []);
-  useEffect(() => {
-    console.log('cards', cards);
-  }, [cards]);
+
+  if (!cards) return null;
 
   const cardArray = [...Array(78).keys()];
   return (
@@ -107,12 +95,13 @@ const DrawFromDeck = ({
             index={el}
             cards={cards}
             cardSpread={cardSpread}
-            setCardSpread={setCardSpread}
+            setOri={setOri}
+            ori={ori}
           />
         ))}
       </Grid>
       <Button
-        disabled={cardSpread !== -1}
+        disabled={ori !== cardSpread}
         variant='outlined'
         color='secondary'
         style={{ position: 'fixed', bottom: 100, right: 50, zIndex: 100 }}

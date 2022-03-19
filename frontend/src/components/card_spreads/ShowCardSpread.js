@@ -19,7 +19,7 @@ function ShowCardSpread() {
   console.log('spread', spread);
   const {
     title,
-    user: { username, bio },
+    user: { username, bio, avatar },
     description,
     createdAt,
   } = spread;
@@ -43,7 +43,17 @@ function ShowCardSpread() {
             mb: '2rem',
           }}
         >
-          <Avatar style={{ width: 100, height: 100 }} />
+          <Avatar
+            style={{
+              width: 100,
+              height: 100,
+              boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
+            }}
+            src={
+              avatar ||
+              'https://images.unsplash.com/photo-1647112294658-c7ec259710e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
+            }
+          />
           <Box
             sx={{
               ml: '2rem',
@@ -63,7 +73,9 @@ function ShowCardSpread() {
             >
               {username}
             </Typography>
-            <Typography variant='h6'>{bio}</Typography>
+            <Typography variant='h6'>
+              {bio || 'This User is too lazy to say anything'}
+            </Typography>
           </Box>
         </Box>
         <Box>
@@ -85,6 +97,7 @@ function ShowCardSpread() {
         flexDirection: 'column',
         alignItems: 'center',
         padding: '2rem',
+        mb: '10rem',
       }}
     >
       <Box
@@ -124,7 +137,13 @@ function ShowCardSpread() {
       </Box>
       <ThreeCards />
       <Description />
-      <Comments />
+      <Box
+        sx={{
+          width: { xs: 400, sm: 500, md: 600, lg: 700, xl: 800 },
+        }}
+      >
+        <Comments />
+      </Box>
     </Box>
   );
 }
