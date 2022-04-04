@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Card from '../../card_spreads/spreads/Card';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,9 +11,16 @@ const Item = styled(Paper)(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-const GridItem = ({ index, cardSpread, cards, setOri, ori }) => {
+const GridItem = ({
+  index,
+  cardSpread,
+  cards,
+  setOri,
+  ori,
+  finished,
+  setFinished,
+}) => {
   const [isFlipped, setIsFlipped] = useState(true);
-  const [finished, setFinished] = useState(false);
   const [cardPic, setCardPic] = useState(
     'https://res.cloudinary.com/willwang/image/upload/v1613623978/cardback_niolpi.png'
   );
@@ -50,40 +55,11 @@ const GridItem = ({ index, cardSpread, cards, setOri, ori }) => {
   );
 };
 
-const DrawFromDeck = ({ cardSpread, title, description, handleClose }) => {
-  const [cards, setCards] = useState([]);
+const DrawFromDeck = ({ cardSpread, cards, finished, setFinished }) => {
   const [ori, setOri] = useState(-1);
-  const user = useSelector((state) => state.session.user.id);
-  const handlePublish = () => {
-    const data = {
-      title,
-      description,
-      user,
-      cardSpread: ori,
-      cards: cards?.cards.map((el) => el.name_short),
-    };
-    axios
-      .post('/api/v1/spreads/', data)
-      .then((res) => {
-        console.log('res data', res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    console.log('numbers', cardSpread + 1);
-    axios
-      .get(
-        `https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=${
-          cardSpread + 1
-        }`
-      )
-      .then((res) => setCards(res.data))
-      .catch((err) => console.error(err));
-  }, []);
 
   if (!cards) return null;
+  console.log('cardskasdkfjalsdfjasl', cards)
 
   const cardArray = [...Array(78).keys()];
   return (
@@ -97,22 +73,11 @@ const DrawFromDeck = ({ cardSpread, title, description, handleClose }) => {
             cardSpread={cardSpread}
             setOri={setOri}
             ori={ori}
+            finished={finished}
+            setFinished={setFinished}
           />
         ))}
       </Grid>
-      <Button
-        disabled={ori !== cardSpread}
-        variant='outlined'
-        color='secondary'
-        style={{ position: 'fixed', bottom: 100, right: 50, zIndex: 100 }}
-        onClick={(e) => {
-          handlePublish();
-          console.log('handle close', handleClose);
-          handleClose(e);
-        }}
-      >
-        publish
-      </Button>
     </div>
   );
 };

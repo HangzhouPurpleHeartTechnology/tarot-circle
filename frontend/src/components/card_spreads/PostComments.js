@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import CommentItem from '../comments/CommentItem';
+import WriteAComment from '../comments/WriteAComment';
 
 const PostComments = () => {
   return (
@@ -14,6 +15,7 @@ const PostComments = () => {
       <Typography variant='h4' style={{ fontFamily: 'Oswald' }}>
         Comments
       </Typography>
+      <WriteAComment />
       <CommentItem />
       <CommentItem />
       <CommentItem />

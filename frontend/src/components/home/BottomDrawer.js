@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Drawer, Button, Fab } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Drawer, Button, Fab, Box } from '@mui/material';
+// import { Add } from '@mui/icons-material';
 import { makeStyles } from '@mui/styles';
 import Content from './draw_card_logics';
 export const useStyles = makeStyles((theme) => ({
@@ -28,17 +28,6 @@ export const useStyles = makeStyles((theme) => ({
     color: '#760BD6',
     marginBottom: '10vh',
   },
-  closeButton: {
-    border: '1px solid red',
-    width: 50,
-    height: 50,
-    padding: 15,
-    borderRadius: 999,
-    position: 'fixed',
-    bottom: 30,
-    left: 30,
-    backgroundColor: 'white',
-  },
   closeBarButton: {
     width: '100%',
     height: 80,
@@ -49,6 +38,10 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: 'white',
     },
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   divider: {
     width: 200,
@@ -67,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
     height: '10vh',
     margin: '0 auto',
     backgroundColor: 'red',
-    border: '5px solid #fff',
+    border: '0.5vh solid #fff',
     '&:hover': {
       backgroundColor: 'pink',
     },
@@ -90,7 +83,12 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function TemporaryDrawer({ note }) {
   const classes = useStyles();
-  const [showDrawer, setShowDrawer] = React.useState(false);
+  const [drawCardSection, setDrawCardSection] = useState(0);
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [finished, setFinished] = useState(false);
+  const [cardSpread, setCardSpread] = useState(0);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -106,22 +104,48 @@ export default function TemporaryDrawer({ note }) {
   const List = ({ anchor }) => (
     <div className={classes.bottomList}>
       <CardNote note={note} anchor={anchor} />
-      <Button
-        variant='outlined'
-        color='secondary'
-        className={classes.closeBarButton}
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-      >
-        CLOSE
-      </Button>
+      <Box className={classes.closeBarButton}>
+        <Button
+          color='warning'
+          onClick={() => setShowDrawer(false)}
+          variant='outlined'
+          sx={{ ml: 4 }}
+        >
+          cancel
+        </Button>
+        <Button
+          color='secondary'
+          variant='outlined'
+          sx={{ mr: 4 }}
+          disabled={drawCardSection === 0 ? !title && !description : !finished}
+          onClick={() =>
+            drawCardSection === 0
+              ? setDrawCardSection(1)
+              : setDrawCardSection(0)
+          }
+        >
+          {drawCardSection === 0 ? 'confirm' : 'publish'}
+        </Button>
+      </Box>
     </div>
   );
 
   const CardNote = () => {
     return (
       <div className={classes.bottomDrawerContent}>
-        <Content handleClose={toggleDrawer(false)} />
+        <Content
+          handleClose={toggleDrawer(false)}
+          drawCardSection={drawCardSection}
+          setDrawCardSection={setDrawCardSection}
+          title={title}
+          setTitle={setTitle}
+          description={description}
+          setDescription={setDescription}
+          finished={finished}
+          setFinished={setFinished}
+          cardSpread={cardSpread}
+          setCardSpread={setCardSpread}
+        />
       </div>
     );
   };
@@ -129,7 +153,15 @@ export default function TemporaryDrawer({ note }) {
   return (
     <div>
       <Fab className={classes.fabButton} onClick={toggleDrawer(true)}>
-        <Add style={{ color: 'white' }} />
+        <Box
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+          }}
+        >
+          Draw
+        </Box>
       </Fab>
       <Drawer
         docked={'false'}
